@@ -1,11 +1,21 @@
-import { Injectable } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserStorageService {
 
-  constructor() {}
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  
+  ngOnInit() {
+    if (isPlatformBrowser(this.platformId)) {
+      // Code that needs window
+      console.log(window);
+    }
+  }
+  
 
   public saveToken(token: string): void {
       window.localStorage.removeItem('TOKEN');
@@ -18,12 +28,12 @@ export class UserStorageService {
   }
   static getToken(): String {
 
-    return localStorage.getItem('TOKEN');
+    return  window.localStorage.getItem('TOKEN');
 }
 
 static getUser():any {
 
-    return localStorage.getItem('USER');
+    return  window.localStorage.getItem('USER');
 }
 
 static getUserId(): String {

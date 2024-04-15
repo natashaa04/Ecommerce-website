@@ -43,8 +43,10 @@ public class AuthController {
 
 	@Autowired
 	private  AuthenticationManager authenticationManager;
+	
 	@Autowired
 	private  UserDetaileServiceImpl userDetaileService;
+	
 	@Autowired
 	private AuthServiceImpl authService;
 	
@@ -86,7 +88,7 @@ public class AuthController {
 		    
 		    
     if (optionalUser.isPresent()) {
-    	log.info("5");
+    
 	        JSONObject responseBody = new JSONObject()
 	                .put("userId", optionalUser.get().getId())
 	                .put("role", optionalUser.get().getRole());

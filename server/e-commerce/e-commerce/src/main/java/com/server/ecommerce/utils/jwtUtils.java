@@ -19,7 +19,6 @@ import java.security.Key;
 import java.util.Base64;
 
 @Component
-
 public class jwtUtils {
 
     public static final String SECRET = "5367566859783373367639792F423F45A71347437536756685978337536763979789789";
