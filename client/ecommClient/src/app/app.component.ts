@@ -9,6 +9,7 @@ import { SignUpComponent } from './Component/sign-up/sign-up.component';
 import { LoginComponent } from './Component/login/login.component';
 import {Router} from '@angular/router';
 import { UserStorageService } from './services/storage/user-storage.service';
+import { AdminService } from './services/adminService/admin.service';
 
 @Component({
   selector: 'app-root',
@@ -28,13 +29,16 @@ import { UserStorageService } from './services/storage/user-storage.service';
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  providers:[UserStorageService]
+  providers:[UserStorageService,AdminService]
 })
 export class AppComponent {
   title = 'ecommClient';
 
   isCustomerLoggedIn: boolean;
 isAdminLoggedIn: boolean;
+Token:String;
+User:String;
+
 
 constructor(private router: Router) {}
 
@@ -42,6 +46,11 @@ ngOnInit(): void {
     this.router.events.subscribe(event => {
         this.isCustomerLoggedIn = UserStorageService.isCustomerLoggedIn();
         this.isAdminLoggedIn = UserStorageService.isAdminLoggedIn();
+        this.Token= UserStorageService.getToken();
+        this.User=UserStorageService.getUser();
+        console.log('token token',this.Token);
+       AdminService.getToken(this.Token)
+
     });
 }
 

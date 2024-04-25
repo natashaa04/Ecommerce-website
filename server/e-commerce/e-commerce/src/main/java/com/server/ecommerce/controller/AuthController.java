@@ -57,13 +57,14 @@ public class AuthController {
 	private final jwtUtils jwtUtil;
 	
 	
-	public static final String TOKEN_PREFIX = "Bearer";
+	public static final String TOKEN_PREFIX = "Bearer ";
 
 	public static final String HEADER_STRING = "Authorization";
 
 	@PostMapping("/authenticate")
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest,
 	                                      HttpServletResponse response) throws IOException, JSONException, AuthenticationException, java.io.IOException {
+		log.info("in auth controller");
 	    try {
 	        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
 	                authenticationRequest.getUsername(),
@@ -85,6 +86,7 @@ public class AuthController {
 	    Optional<user> optionalUser = userRepository.findFirstByEmail(userDetails.getUsername());
 	    
 		    final String jwt = jwtUtil.generateToken(userDetails.getUsername());
+		    log.info(jwt);
 		    
 		    
     if (optionalUser.isPresent()) {

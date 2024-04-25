@@ -1,6 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -8,11 +9,12 @@ export class UserStorageService {
 
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
-  
+
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
-      // Code that needs window
-      console.log(window);
+   if(typeof window !=='undefined')
+{      console.log('window');
+}
     }
   }
   
@@ -26,15 +28,23 @@ export class UserStorageService {
       window.localStorage.removeItem('USER');
       window.localStorage.setItem('USER', JSON.stringify(user));
   }
-  static getToken(): String {
-
-    return  window.localStorage.getItem('TOKEN');
+  static getToken(): string {
+    if (typeof window === 'undefined') {
+      // console.log('no window');
+        return null; // or any appropriate value for your application
+    }
+    return window.localStorage.getItem('TOKEN');
 }
 
-static getUser():any {
-
-    return  window.localStorage.getItem('USER');
+static getUser(): any {
+    if (typeof window === 'undefined') {
+      // console.log('no window');
+        return null; // or any appropriate value for your application
+    }
+    return window.localStorage.getItem('USER');
 }
+
+// Modify other static methods similarly...
 
 static getUserId(): String {
     const user = this.getUser();
@@ -65,7 +75,7 @@ static isCustomerLoggedIn(): boolean {
   if (this.getToken() === null) {
       return false;
   }
-  console.log('customer token',this.getToken())
+  // console.log('customer token',this.getToken())
   const role: String = this.getUserRole();
   //  console.log('role is',role);
   return role === 'CUSTOMER';

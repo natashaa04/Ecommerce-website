@@ -1,27 +1,26 @@
 <div class="container">
 
     <h2>Add Category</h2>
-  
-    <!-- Category form with formGroup and ngSubmit directive -->
+ 
     <form [formGroup]="categoryForm" (ngSubmit)="addCategory()">
   
-      <!-- Form field for category name -->
+
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Name</mat-label>
         <input matInput type="text" placeholder="Name" formControlName="name" />
-        <!-- Error message for required validation -->
+
         <mat-error *ngIf="categoryForm.get('name')?.hasError('required')">This input is required!</mat-error>
       </mat-form-field>
   
-      <!-- Form field for category description -->
+
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Description</mat-label>
         <input matInput type="text" placeholder="Description" formControlName="description" />
-        <!-- Error message for required validation -->
+     
         <mat-error *ngIf="categoryForm.get('description')?.hasError('required')">This input is required!</mat-error>
       </mat-form-field>
   
-      <!-- Button to submit the form -->
+
       <button mat-raised-button color="primary" type="submit">Add Category</button>
   
     </form>

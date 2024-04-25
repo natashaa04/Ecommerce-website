@@ -39,7 +39,7 @@ public class simpleCorsFilter implements Filter {
         response.setHeader("Access-Control-Allow-Origin", originHeader);
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
-        response.setHeader("Access-Control-Allow-Headers", "content-type");
+        response.setHeader("Access-Control-Allow-Headers", "Content-Type,X-Requested-With,Origin,Accept,Authorization");
 
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
             response.setStatus(jakarta.servlet.http.HttpServletResponse.SC_OK);
