@@ -9,27 +9,27 @@ const BASIC_URL = 'http://localhost:8080/';
   providedIn: 'root'
 })
 export class AdminService {
-static Token:String;
-User:String;
+
   constructor(private http: HttpClient,userStorageService:UserStorageService) {}
 
-  static getToken(token:String){
-    console.log('admins ervice token',token)
-    AdminService.Token=token;
-  }
+  // static getToken(token:String){
+  //   // console.log('admins ervice token',token)
+  //   AdminService.Token=token;
+  // }
   
 
   private createAuthorizationHeader(): HttpHeaders {
 
-    const token = AdminService.Token
-    console.log('token here',token) // Retrieve token from UserStorageService
+    // const token = AdminService.Token;
+    const token = UserStorageService.getToken();
+    console.log('token here',token) ;// Retrieve token from UserStorageService
     return new HttpHeaders().set('Authorization', 'Bearer ' + token).set('Content-Type', 'application/json'); // Add Content-Type header
   
   }
 
 
   addCategory(categoryDto: any): Observable<any> {
-    console.log('token is',AdminService.Token);
+    // console.log('token is',AdminService.Token);
     return this.http.post(BASIC_URL + 'api/admin/category', categoryDto, {
       headers: this.createAuthorizationHeader()
     
@@ -43,7 +43,8 @@ User:String;
   }
 
   addProduct(productDto:any):Observable<any>{
-     return this.http.post(BASIC_URL+'api/adin/product',productDto,{
+    console.log('product dto is',productDto);
+     return this.http.post(BASIC_URL+'api/admin/product',productDto,{
       headers:this.createAuthorizationHeader(),
      })
   }
@@ -54,6 +55,18 @@ User:String;
     })
   }
 
+getAllProductsByName(name:any):Observable<any>{
+  return this.http.get(BASIC_URL+`api/admin/search/${name}`,{
+  headers:this.createAuthorizationHeader(),
+  }
+  )
+}
+
+  deleteProduct(productId: any): Observable<any> {
+    return this.http.delete(`${BASIC_URL}/api/admin/product/${productId}`, {
+        headers: this.createAuthorizationHeader()
+    });
+}
 
 
   

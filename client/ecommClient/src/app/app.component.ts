@@ -48,8 +48,9 @@ ngOnInit(): void {
         this.isAdminLoggedIn = UserStorageService.isAdminLoggedIn();
         this.Token= UserStorageService.getToken();
         this.User=UserStorageService.getUser();
-        console.log('token token',this.Token);
-       AdminService.getToken(this.Token)
+        console.log('token in app',this.Token);
+        // console.log('admin loged in?',this.isAdminLoggedIn);
+      //  AdminService.getToken(this.Token)
 
     });
 }

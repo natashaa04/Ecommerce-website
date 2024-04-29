@@ -35,7 +35,7 @@ public class Product {
 	
 	@Lob
 	@Column(columnDefinition = "longblob")
-	private byte[] img;
+	private String img;
 	
 	@ManyToOne(fetch = FetchType.LAZY,optional=false)
 	@JoinColumn(name = "catagory_id",nullable=false)
@@ -43,13 +43,13 @@ public class Product {
 	@JsonIgnore
 	private Category category;
 	
-	public ProductDto getDto() {
+	public ProductDto getDto(	) {
 	    ProductDto productDto = new ProductDto();
 	    productDto.setId(id);
 	    productDto.setName(name);
 	    productDto.setPrice(price);
 	    productDto.setDescription(description);
-	    productDto.setByteImg(img);
+	    productDto.setImg(img);
 	    productDto.setCategoryId(category.getId());
 	    return productDto;
 	}

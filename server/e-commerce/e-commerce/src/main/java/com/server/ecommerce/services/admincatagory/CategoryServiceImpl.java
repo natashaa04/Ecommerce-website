@@ -10,9 +10,11 @@ import com.server.ecommerce.entity.Category;
 import com.server.ecommerce.repository.CategoryRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CategoryServiceImpl implements CategoryService{
 	
 	@Autowired
@@ -26,7 +28,16 @@ public class CategoryServiceImpl implements CategoryService{
 	}
 	
 	   public List<Category> getAllCategories(){
-		   return categoryRepository.findAll();
+		   try {
+			   log.info("in cata");
+		   List<Category>cat= categoryRepository.findAll();
+		   return cat;
+		   }
+		   catch(Exception e){
+			   log.info("categories err:{}");
+			   e.printStackTrace();
+			   return null;
+		   }
 	   }
 
 

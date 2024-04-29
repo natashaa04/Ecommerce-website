@@ -1,5 +1,6 @@
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser ,isPlatformServer} from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { getWindow as window} from 'ssr-window';
 
 
 @Injectable({
@@ -8,32 +9,37 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 export class UserStorageService {
 
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: any,
+  
+  ) {}
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
-   if(typeof window !=='undefined')
-{      console.log('window');
-}
     }
+
+if (isPlatformServer(this.platformId)) {
+
+    }
+
   }
-  
+
 
   public saveToken(token: string): void {
-      window.localStorage.removeItem('TOKEN');
-      window.localStorage.setItem('TOKEN', token);
+      window().localStorage.removeItem('TOKEN');
+      window().localStorage.setItem('TOKEN', token);
   }
   
   public saveUser(user: any): void {
-      window.localStorage.removeItem('USER');
-      window.localStorage.setItem('USER', JSON.stringify(user));
+     window().localStorage.removeItem('USER');
+      window().localStorage.setItem('USER', JSON.stringify(user));
   }
   static getToken(): string {
     if (typeof window === 'undefined') {
-      // console.log('no window');
-        return null; // or any appropriate value for your application
+      console.log('no window');
+        // return null; // or any appropriate value for your application
     }
-    return window.localStorage.getItem('TOKEN');
+     const token= window() && window().localStorage?.getItem('TOKEN') || null ;
+    return token;
 }
 
 static getUser(): any {
@@ -41,7 +47,7 @@ static getUser(): any {
       // console.log('no window');
         return null; // or any appropriate value for your application
     }
-    return window.localStorage.getItem('USER');
+    return window().localStorage.getItem('USER');
 }
 
 // Modify other static methods similarly...
@@ -65,6 +71,7 @@ static getUserRole(): String {
 
 static isAdminLoggedIn(): boolean {
   if (this.getToken() === null) {
+    console.log('token in adminlogged in func no');
       return false;
   }
   const role: String = this.getUserRole();
@@ -82,8 +89,8 @@ static isCustomerLoggedIn(): boolean {
 }
 
 static signOut(): void {
-  window.localStorage.removeItem('TOKEN');
-  window.localStorage.removeItem('USER');
+  window().localStorage.removeItem('TOKEN');
+  window().localStorage.removeItem('USER');
 }
 
 

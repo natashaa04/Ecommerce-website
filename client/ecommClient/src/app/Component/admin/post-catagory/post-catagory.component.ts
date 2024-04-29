@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { AdminService } from '../../services/adminService/admin.service';
-import { AngularMaterialModule } from '../../AngularMaterialModule';
+import { AdminService } from '../../../services/adminService/admin.service';
+import { AngularMaterialModule } from '../../../AngularMaterialModule';
 import { CommonModule, NgIf } from '@angular/common';
 
 @Component({

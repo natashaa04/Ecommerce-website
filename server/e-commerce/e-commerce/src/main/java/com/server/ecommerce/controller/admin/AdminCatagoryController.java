@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,10 +17,12 @@ import com.server.ecommerce.entity.Category;
 import com.server.ecommerce.services.admincatagory.CategoryService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/api/admin")
 @RequiredArgsConstructor
+@Slf4j
 public class AdminCatagoryController {
 	
     @Autowired
@@ -32,8 +35,9 @@ public class AdminCatagoryController {
     	
     }
     
-    @PostMapping("")
+    @GetMapping("categories")
     public ResponseEntity<List<Category>> getAllCatagories(){
+    	log.info("in mappin");
     	return ResponseEntity.ok(categoryService.getAllCategories());
     }
 }
