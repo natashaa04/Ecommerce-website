@@ -56,12 +56,20 @@ public class adminProductServiceImpl implements adminProductService {
 			return products.stream().map(Product::getDto).collect(Collectors.toList());	
 		}
 		public boolean deleteProduct(Long id) {
+			try {
 		    Optional<Product> optionalProduct = productRepository.findById(id);
-		    if (optionalProduct.isPresent()) {
+		    
 		        productRepository.deleteById(id);
 		        return true;
-		    }
-		    return false;
+		    
+		    
+			}
+			catch (Exception e) {
+				log.info("delete exception");
+				e.printStackTrace();
+				return false;
+			}
+	
 		}
 
 }

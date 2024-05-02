@@ -37,8 +37,10 @@
     padding: 20px;
   
     .product-card {
-      width: calc(33.33% - 20px);
+      // width: calc(33.33% - 20px);
+      width: 300px;
       margin-bottom: 20px;
+      margin-left: 20px;
       border-radius: 10px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   

@@ -6,10 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.server.ecommerce.Enum.OrderStatus;
 import com.server.ecommerce.Enum.userRole;
 import com.server.ecommerce.dto.SignupRequest;
 import com.server.ecommerce.dto.userDto;
+import com.server.ecommerce.entity.Order;
 import com.server.ecommerce.entity.user;
+import com.server.ecommerce.repository.OrderRepository;
 import com.server.ecommerce.repository.UserRepository;
 
 import jakarta.annotation.PostConstruct;
@@ -21,7 +24,7 @@ public class AuthServiceImpl implements AuthService {
  
 	@Autowired
 	private UserRepository userRepository;
-	
+	private OrderRepository orderRepository;
 	
 	 
 	 public userDto createUser(SignupRequest signupRequest) {
@@ -35,6 +38,17 @@ public class AuthServiceImpl implements AuthService {
 		    
 		    userDto userDto = new userDto();
 		    userDto.setId((long) createdUser.getId());
+		    
+		    Order order = new Order();
+		    order.setAmount(0L);
+		    order.setTotalAmount(0L);
+		    order.setDiscount(0L);
+		    order.setUser(createdUser);
+		    order.setOrderStatus(OrderStatus.Pending);
+		    orderRepository.save(order);
+
+		
+
 		    
 		    return userDto;
 		}

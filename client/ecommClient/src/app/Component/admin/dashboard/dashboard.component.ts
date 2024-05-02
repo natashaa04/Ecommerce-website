@@ -32,6 +32,14 @@ constructor(private adminService :AdminService,
       title: [null, [Validators.required]]
     });
   }
+
+  onInputChange() {
+    const searchTerm = this.searchProductForm.get('title').value;
+    if (searchTerm === '') {
+       this.getAllProducts(); // Show all products if search bar is empty
+    }
+  }
+  
   
   getAllProducts(): void {
     this.products = [];
@@ -53,7 +61,7 @@ constructor(private adminService :AdminService,
       next:(res:any) => {
 
       res.forEach(element => {
-        element.processedImg = 'data:image/jpeg;base64,' + element.byteImg;
+        element.processedImg = element.img;
         this.products.push(element);
       });
       console.log(this.products);
@@ -66,20 +74,23 @@ constructor(private adminService :AdminService,
 
     this.adminService.deleteProduct(productId).subscribe({
       next:(res:any) => {
-        if (res.body == null) {
+        console.log('product deleted1');
+        
             this.snackBar.open('Product Deleted Successfully!', 'close', {
                 duration: 5000
             });
+            console.log('product deleted');
             this.getAllProducts();
-        } else {
-            this.snackBar.open(res.message, 'Close', {
-                duration: 5000,
-                panelClass: 'error-snackbar'
-            });
-        }
-      },
-        error:(err:any)=>{
           
+        
+        },
+      
+        error:(err:any)=>{
+          console.log('product not deleted',err);
+          this.snackBar.open(err.message, 'Close', {
+              duration: 5000,
+              panelClass: 'error-snackbar'
+          });
         }
         });
 }

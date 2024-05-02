@@ -11,4 +11,5 @@ import com.server.ecommerce.entity.Product;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long>{
 List<Product>findAllByNameContaining(String title);
+   void deleteById(Long id);
 }
