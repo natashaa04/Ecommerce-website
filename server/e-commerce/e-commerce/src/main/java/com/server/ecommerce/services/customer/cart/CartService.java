@@ -11,6 +11,7 @@ public interface CartService  {
 	public ResponseEntity<?> addProductToCart(AddProductInCartDto addProductInCartDto);
 	public OrderDto getCartByUserId(Long userId);
 	public OrderDto placeOrder(PlaceOrderDto placeOrderDto) ;
+	public OrderDto applyCoupon(Long userId, String code) ;
 	public boolean couponIsExpired(Coupon coupon) ;
 	public OrderDto increaseProductQuantity(AddProductInCartDto addProductInCartDto);
 	public OrderDto decreaseProductQuantity(AddProductInCartDto addProductInCartDto);

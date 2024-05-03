@@ -1,1 +1,37 @@
-<p>cart works!</p>
+<div *ngIf="cartItems.length > 0; else emptyCart" class="cart-container">
+    <div class="cart-item" *ngFor="let item of cartItems">
+        <div class="product-info">
+            <div class="product-image">
+                <img [src]="item.processedImg" alt="product-image" />
+            </div>
+            <di class="product-details">
+                <div class="item-row">
+                    <div class="item-name" [ngClass]="{ 'highlight': item.highlighted }">
+                        {{ item.productName }}
+                    </div>
+                    <div class="item-price">{{ item.price | currency }}</div>
+                    <div class="quantity-controls">
+                        <button mat-icon-button [disabled]="item.quantity - 1">
+                            <mat-icon>remove_circle_outline</mat-icon>
+                        </button>
+                        <span class="quantity">{{ item.quantity }}</span>
+                    </div>
+                </div>
+    </div>
+    <div class="total-price">
+        Total Amount: {{ order.totalAmount | currency }}
+    </div>
+    <div class="total-price">
+        Amount: {{ order.amount | currency }}
+    </div>
+    <div>
+        <button mat-raised-button color="primary">Place Order</button>
+    </div>
+</div>
+
+<ng-template #emptyCart>
+    <div class="empty-cart">
+        <mat-icon class="icon">remove_shopping_cart</mat-icon>
+        <span>Nothing to see here.</span>
+    </div>
+</ng-template>

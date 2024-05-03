@@ -9,7 +9,10 @@ import com.server.ecommerce.entity.Coupon;
 import com.server.ecommerce.exceptions.ValidationException;
 import com.server.ecommerce.repository.CouponRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class AdminCouponServiceImpl implements AdminCouponService{
 
 	
@@ -17,11 +20,20 @@ public class AdminCouponServiceImpl implements AdminCouponService{
 	private CouponRepository couponRepository;
 	
 	public Coupon createCoupon(Coupon coupon) {
-	    if (couponRepository.existsByCode(coupon.getCode())) {
-	        throw new ValidationException("Coupon code already exists.");
-	    }
-	    return couponRepository.save(coupon);
+		
+		try {
+			 if (couponRepository.existsByCode(coupon.getCode())) {
+			        throw new ValidationException("Coupon code already exists.");
+			    }
+			    return couponRepository.save(coupon);
+			
+		} catch (Exception e) {
+			log.info("error in creatin token");
+			e.printStackTrace();
+			return null;
+		}
 	}
+	   
 
 	public List<Coupon> getAllCoupons() {
 	    return couponRepository.findAll();

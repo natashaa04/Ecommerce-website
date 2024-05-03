@@ -44,5 +44,13 @@ addToCart(productId: any): Observable<any> {
   });
 }
 
+getCartByUserId(): Observable<any> {
+  const userId = UserStorageService.getUserId();
+  return this.http.get(`${BASIC_URL}/api/customer/cart/${userId}`, {
+      headers: this.createAuthorizationHeader()
+  });
+}
+
+
 
 }

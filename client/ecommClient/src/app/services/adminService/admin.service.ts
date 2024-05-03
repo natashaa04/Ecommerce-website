@@ -12,11 +12,6 @@ export class AdminService {
 
   constructor(private http: HttpClient,userStorageService:UserStorageService) {}
 
-  // static getToken(token:String){
-  //   // console.log('admins ervice token',token)
-  //   AdminService.Token=token;
-  // }
-  
 
   private createAuthorizationHeader(): HttpHeaders {
 
@@ -67,6 +62,19 @@ getAllProductsByName(name:any):Observable<any>{
         headers: this.createAuthorizationHeader()
     });
 }
+addCoupon(couponDto: any): Observable<any> {
+  return this.http.post(BASIC_URL + 'api/admin/coupons/create', couponDto, {
+    headers: this.createAuthorizationHeader(),
+  });
+}
+
+getCoupons(): Observable<any> {
+  return this.http.get(BASIC_URL + 'api/admin/coupons/all', {
+    headers: this.createAuthorizationHeader(),
+  });
+}
+
+
 
 
   
