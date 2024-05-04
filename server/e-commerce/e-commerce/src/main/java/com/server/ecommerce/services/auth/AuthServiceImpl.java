@@ -24,10 +24,15 @@ public class AuthServiceImpl implements AuthService {
  
 	@Autowired
 	private UserRepository userRepository;
+	
+
+	@Autowired
 	private OrderRepository orderRepository;
 	
 	 
 	 public userDto createUser(SignupRequest signupRequest) {
+		 log.info(" creating user");
+		 try {
 		    user User = new user();
 		    User.setEmail(signupRequest.getEmail());
 		    User.setName(signupRequest.getName());
@@ -46,11 +51,14 @@ public class AuthServiceImpl implements AuthService {
 		    order.setUser(createdUser);
 		    order.setOrderStatus(OrderStatus.Pending);
 		    orderRepository.save(order);
-
-		
-
-		    
 		    return userDto;
+		 }
+		 catch (Exception e) {
+		  log.info("err wile creating user");
+		  e.printStackTrace();
+		  return null;
+		}
+
 		}
 
 		public Boolean hasUserWithEmail(String email) {

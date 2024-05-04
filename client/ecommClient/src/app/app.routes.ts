@@ -8,6 +8,8 @@ import { CustomerComponent } from './Component/customer/customer.component';
 import { DashboardComponent } from './Component/admin/dashboard/dashboard.component';
 import { PostCouponComponent } from './Component/admin/post-coupon/post-coupon.component';
 import { CouponComponent } from './Component/admin/coupon/coupon.component';
+import { CartComponent } from './Component/customer/cart/cart.component';
+
 export const routes: Routes = [
   { path: 'login', component: LoginComponent } ,
    { path: 'signup', component: SignUpComponent },
@@ -19,5 +21,6 @@ export const routes: Routes = [
  {path:'customer/dashboard', component:CustomerComponent},
  {path:'admin/post-coupon', component:PostCouponComponent},
  {path:'admin/coupons', component:CouponComponent},
+ {path:'customer/cart', component:CartComponent},
  
 ];

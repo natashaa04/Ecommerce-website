@@ -30,7 +30,7 @@ public class AdminCouponController {
 	@Autowired
   private AdminCouponService adminCouponService;
 	
-	@PostMapping("create")
+	@PostMapping("/create")
 	public ResponseEntity<?> createCoupon(@RequestBody Coupon coupon) {
 	    try {
 	    	log.info("in creatin token controller");
@@ -42,7 +42,7 @@ public class AdminCouponController {
 	    }
 	}
 
-	@GetMapping("all")
+	@GetMapping("/all")
 	public ResponseEntity<List<Coupon>> getAllCoupons() {
 	    return ResponseEntity.ok(adminCouponService.getAllCoupons());
 	}

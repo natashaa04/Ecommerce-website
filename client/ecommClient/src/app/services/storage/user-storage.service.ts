@@ -38,7 +38,7 @@ if (isPlatformServer(this.platformId)) {
       console.log('no window');
         // return null; // or any appropriate value for your application
     }
-     const token= window() && window().localStorage?.getItem('TOKEN') || null ;
+   const token= window() && window().localStorage?.getItem('TOKEN') || null ;
     return token;
 }
 
@@ -53,7 +53,8 @@ static getUser(): any {
 // Modify other static methods similarly...
 
 static getUserId(): String {
-    const user = this.getUser();
+  const user = JSON.parse(this.getUser());
+    console.log('user is',user.userId);
     if (!user) {
         return '';
     }

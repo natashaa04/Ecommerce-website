@@ -109,12 +109,19 @@ public class AuthController {
 	
 	@PostMapping("/sign-up")
 	public ResponseEntity<?> signUpUser(@RequestBody SignupRequest signupRequest) {
+		log.info("in sign-up controller");
+		try {
 	    if (authService.hasUserWithEmail(signupRequest.getEmail())) {
 	        return new ResponseEntity<>("User already exists", HttpStatus.NOT_ACCEPTABLE);
 	    }
 
 	    userDto userDto = authService.createUser(signupRequest);
 	    return new ResponseEntity<>(userDto, HttpStatus.OK);
+		}catch (Exception e) {
+			log.info("error in sign-up controller");
+			e.printStackTrace();
+		}
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("bad request");
 	}
 
 

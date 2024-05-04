@@ -29,8 +29,12 @@ import com.server.ecommerce.repository.OrderRepository;
 import com.server.ecommerce.repository.ProductRepository;
 import com.server.ecommerce.repository.UserRepository;
 
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
+
 
 @Service
+@Slf4j
 public class CartServiceImpl implements CartService {
 
 	@Autowired
@@ -87,6 +91,7 @@ public class CartServiceImpl implements CartService {
 	
 	
 	public OrderDto getCartByUserId(Long userId) { 
+		try {
 	    Order activeOrder = orderRepository.findByUserIdAndOrderStatus(userId, OrderStatus.Pending); 
 	    List<CartItemsDto> cartItemsDtoList = activeOrder.getCartItems().stream().map(CartItems::getCartDto).collect(Collectors.toList()); 
 	   OrderDto orderDto = new OrderDto(); 
@@ -99,11 +104,17 @@ public class CartServiceImpl implements CartService {
 	    if (activeOrder.getCoupon() != null) { 
 	        orderDto.setCouponName(activeOrder.getCoupon().getName()); 
 	    }
-	    return orderDto;   
+	    return orderDto;  
+		}catch (Exception e) {
+			log.info("getcart err");
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 
 	public OrderDto placeOrder(PlaceOrderDto placeOrderDto) {
+		try {
 	    Order activeOrder = orderRepository.findByUserIdAndOrderStatus(placeOrderDto.getUserId(), OrderStatus.Pending);
 	    Optional<user> optionalUser = userRepository.findById(placeOrderDto.getUserId());
 	    
@@ -122,11 +133,17 @@ public class CartServiceImpl implements CartService {
 	        order.setUser(optionalUser.get());
 	        order.setOrderStatus(OrderStatus.Pending);
 	        orderRepository.save(order);
-	        
+	        log.info("new order:{}",order);
 	        return activeOrder.getOrderDto();
 	    }
+	    }catch (Exception e) {
+			log.info("place order error");
+			e.printStackTrace();
+			   return null;
+
+	    }
 	    
-	    return null;
+	 return null;
 	}
 	
 	public OrderDto applyCoupon(Long userId, String code) {

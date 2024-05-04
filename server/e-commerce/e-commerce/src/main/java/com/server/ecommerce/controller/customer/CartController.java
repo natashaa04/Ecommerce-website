@@ -17,10 +17,12 @@ import com.server.ecommerce.exceptions.ValidationException;
 import com.server.ecommerce.services.customer.cart.CartService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/api/customer")
 @RequiredArgsConstructor
+@Slf4j
 public class CartController {
 
 	@Autowired
@@ -42,8 +44,15 @@ public class CartController {
 	}
 	@GetMapping("/cart/{userId}")
 	public ResponseEntity<?> getCartByUserId(@PathVariable Long userId) {
+		try {
+			
 	    OrderDto orderDto = cartService.getCartByUserId(userId);
 	    return ResponseEntity.status(HttpStatus.OK).body(orderDto);
+		}catch (Exception e) {
+			log.info("get cart controller error");
+//			e.printStackTrace();)
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+		}
 	}
 
 	
