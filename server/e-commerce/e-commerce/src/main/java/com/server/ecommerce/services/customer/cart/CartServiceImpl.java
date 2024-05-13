@@ -1,5 +1,6 @@
 package com.server.ecommerce.services.customer.cart;
 
+import java.lang.ProcessHandle.Info;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -148,6 +149,7 @@ public class CartServiceImpl implements CartService {
 	
 	public OrderDto applyCoupon(Long userId, String code) {
 	    Order activeOrder = orderRepository.findByUserIdAndOrderStatus(userId, OrderStatus.Pending);
+	    log.info("active order is:{}",activeOrder);
 	   if(couponRepository.findByCode(code)!=null){
 		    Coupon coupon = couponRepository.findByCode(code);
 		    if (couponIsExpired(coupon)) {

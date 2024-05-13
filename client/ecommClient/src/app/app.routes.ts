@@ -9,6 +9,7 @@ import { DashboardComponent } from './Component/admin/dashboard/dashboard.compon
 import { PostCouponComponent } from './Component/admin/post-coupon/post-coupon.component';
 import { CouponComponent } from './Component/admin/coupon/coupon.component';
 import { CartComponent } from './Component/customer/cart/cart.component';
+import { OrdersComponent } from './Component/admin/orders/orders.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent } ,
@@ -22,5 +23,6 @@ export const routes: Routes = [
  {path:'admin/post-coupon', component:PostCouponComponent},
  {path:'admin/coupons', component:CouponComponent},
  {path:'customer/cart', component:CartComponent},
+ {path:'admin/orders', component:OrdersComponent},
  
 ];

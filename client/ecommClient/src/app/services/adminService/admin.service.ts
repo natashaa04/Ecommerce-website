@@ -73,6 +73,19 @@ getCoupons(): Observable<any> {
     headers: this.createAuthorizationHeader(),
   });
 }
+getPlacedOrders(): Observable<any> {
+  return this.http.get(BASIC_URL + 'api/admin/placeOrders', {
+    headers: this.createAuthorizationHeader(),
+  });
+}
+
+changeOrderStatus(orderId:number,status:String): Observable<any> {
+  return this.http.get(BASIC_URL + `api/admin/order/${orderId}/${status}`, {
+    headers: this.createAuthorizationHeader(),
+  });
+}
+
+
 
 
 

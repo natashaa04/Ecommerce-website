@@ -39,7 +39,9 @@ placeOrder(){
   this.customerService.placeOrder(this.orderForm.value).subscribe({
     next:(res)=>{
          this.snackBar.open("Order Placed Sucessfully","Close",{duration:5000});
+         this.dialog.closeAll();
          this.router.navigateByUrl("/customer/my-orders");
+        
     },error:(err)=>{
          console.log('error while placing order',err);
          this.snackBar.open("something went wron",'ERROR',{duration:5000})
