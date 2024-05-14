@@ -1,5 +1,7 @@
 package com.server.ecommerce.services.customer.cart;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 
 import com.server.ecommerce.dto.AddProductInCartDto;
@@ -15,4 +17,5 @@ public interface CartService  {
 	public boolean couponIsExpired(Coupon coupon) ;
 	public OrderDto increaseProductQuantity(AddProductInCartDto addProductInCartDto);
 	public OrderDto decreaseProductQuantity(AddProductInCartDto addProductInCartDto);
+	 public List<OrderDto> getMyPlacedOrders(Long userId);
 }

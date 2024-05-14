@@ -1,5 +1,7 @@
 package com.server.ecommerce.controller.customer;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -69,6 +71,17 @@ public class CartController {
 	@PostMapping("/placeOrder")
 	public ResponseEntity<OrderDto> placeOrder(@RequestBody PlaceOrderDto placeOrderDto) {
 	    return ResponseEntity.status(HttpStatus.CREATED).body(cartService.placeOrder(placeOrderDto));
+	}
+	
+	 @GetMapping("/myOrders/{userId}")
+		public ResponseEntity<List<OrderDto>> getMyPlacedOrders(@PathVariable Long userId){
+	
+			List<OrderDto> orderDtos= cartService.getMyPlacedOrders(userId);
+			if(orderDtos.isEmpty()) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+			}
+			return ResponseEntity.status(HttpStatus.OK).body(orderDtos);
+			
 	}
 
 }

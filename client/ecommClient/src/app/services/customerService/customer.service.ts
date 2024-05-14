@@ -52,6 +52,7 @@ getCartByUserId(): Observable<any> {
   });
 }
 
+
 increaseProductQuantity(productId: any): Observable<any> {
   const cartoto = {
     productId: productId,
@@ -91,6 +92,13 @@ placeOrder(orderDto: any): Observable<any> {
   });
 }
 
+getOrdersByUserId(): Observable<any> {
+
+  const userId = UserStorageService.getUserId();
+  return this.http.get(`${BASIC_URL}api/customer/myOrders/${userId}`, {
+      headers: this.createAuthorizationHeader()
+  });
+}
 
 
 }
