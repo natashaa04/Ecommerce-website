@@ -3,7 +3,7 @@ package com.server.ecommerce.controller.admin;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatus;import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.server.ecommerce.dto.FAQDto;
 import com.server.ecommerce.dto.ProductDto;
+import com.server.ecommerce.services.FAQ.FAQService;
 import com.server.ecommerce.services.admincProduct.adminProductService;
 
 import io.jsonwebtoken.io.IOException;
@@ -32,6 +33,8 @@ public class AdminProductController {
 	@Autowired
 	private adminProductService adminProductService;
 	
+	@Autowired
+	private final FAQService faqService;
 	@PostMapping("/product")
 	public ResponseEntity<ProductDto> addProduct(@RequestBody ProductDto productDto) throws IOException {
         log.info("In product controller: {}", productDto);
@@ -57,6 +60,16 @@ public ResponseEntity<Void> deleteProduct(@PathVariable Long productId) {
         return ResponseEntity.noContent().build();
     }
     return ResponseEntity.notFound().build();
+}
+
+@PostMapping("/faq/{productId}")
+public ResponseEntity<FAQDto> postFAQ(@PathVariable Long productId,@RequestBody FAQDto faqDto){
+	FAQDto ResultedfaqDto= faqService.postFAQ(productId, faqDto);
+	if(ResultedfaqDto!=null) {
+		return ResponseEntity.status(HttpStatus.OK).body(ResultedfaqDto);
+	}
+	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+	
 }
 
 }

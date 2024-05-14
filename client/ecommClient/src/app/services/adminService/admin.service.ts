@@ -85,6 +85,13 @@ changeOrderStatus(orderId:number,status:String): Observable<any> {
   });
 }
 
+postFAQ(productId:number,faqDto:any): Observable<any> {
+  return this.http.post(BASIC_URL + `api/admin/faq/${productId}`, faqDto, {
+    headers: this.createAuthorizationHeader(),
+  });
+}
+
+
 
 
 

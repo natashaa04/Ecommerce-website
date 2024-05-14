@@ -11,6 +11,7 @@ import { CouponComponent } from './Component/admin/coupon/coupon.component';
 import { CartComponent } from './Component/customer/cart/cart.component';
 import { OrdersComponent } from './Component/admin/orders/orders.component';
 import { MyOrdersComponent } from './Component/customer/my-orders/my-orders.component';
+import { PostProductFaqComponent } from './Component/admin/post-product-faq/post-product-faq.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent } ,
@@ -26,4 +27,6 @@ export const routes: Routes = [
  {path:'customer/cart', component:CartComponent},
  {path:'admin/orders', component:OrdersComponent},
  {path:'customer/my_orders', component:MyOrdersComponent},
+ {path:'admin/faq/:productId', component:PostProductFaqComponent},
+
 ];
