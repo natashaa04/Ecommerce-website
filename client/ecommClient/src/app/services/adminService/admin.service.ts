@@ -38,7 +38,7 @@ export class AdminService {
   }
 
   addProduct(productDto:any):Observable<any>{
-    console.log('product dto is',productDto);
+    // console.log('product dto is',productDto);
      return this.http.post(BASIC_URL+'api/admin/product',productDto,{
       headers:this.createAuthorizationHeader(),
      })
@@ -49,6 +49,9 @@ export class AdminService {
       headers:this.createAuthorizationHeader(),
     })
   }
+
+ 
+
 
 getAllProductsByName(name:any):Observable<any>{
   return this.http.get(BASIC_URL+`api/admin/search/${name}`,{
@@ -91,6 +94,18 @@ postFAQ(productId:number,faqDto:any): Observable<any> {
   });
 }
 
+updateProduct(productId,productDto:any):Observable<any>{
+  // console.log('product dto is',productDto);
+   return this.http.put(BASIC_URL+`api/admin/product/${productId}`,productDto,{
+    headers:this.createAuthorizationHeader(),
+   })
+}
+
+getProductById(productId):Observable<any>{
+  return this.http.get( BASIC_URL+`api/admin/product/${productId}`,{
+    headers:this.createAuthorizationHeader(),
+  })
+}
 
 
 

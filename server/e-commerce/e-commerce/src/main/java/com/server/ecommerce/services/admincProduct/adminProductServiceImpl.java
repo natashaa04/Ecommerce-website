@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.server.ecommerce.dto.ProductDto;
+import com.server.ecommerce.entity.Category;
 import com.server.ecommerce.entity.Product;
 import com.server.ecommerce.repository.CategoryRepository;
 import com.server.ecommerce.repository.ProductRepository;
@@ -39,7 +40,7 @@ public class adminProductServiceImpl implements adminProductService {
 			}
 		    ;
 		 
-		    log.info("id is :{}",productDto);
+		    
 		    com.server.ecommerce.entity.Category category = categoryRepository.findById(productDto.getCategoryId())
 		            .orElseThrow(() -> new RuntimeException("Catagory not found"));
 		    product.setCategory(category);
@@ -50,11 +51,14 @@ public class adminProductServiceImpl implements adminProductService {
 		    List<Product> products = productRepository.findAll();
 		    return products.stream().map(Product::getDto).collect(Collectors.toList());
 		}
+		
          
 		public List<ProductDto> getAllProductByName(String name){
 			List<Product>products= productRepository.findAllByNameContaining(name);
 			return products.stream().map(Product::getDto).collect(Collectors.toList());	
 		}
+		
+		
 		public boolean deleteProduct(Long id) {
 			try {
 		    Optional<Product> optionalProduct = productRepository.findById(id);
@@ -70,6 +74,36 @@ public class adminProductServiceImpl implements adminProductService {
 				return false;
 			}
 	
+		}
+		
+		public ProductDto getProductById(Long productId) {	
+			Optional<Product>optionalProduct =productRepository.findById(productId);
+		
+			if(optionalProduct.isPresent()) {
+				return optionalProduct.get().getDto();
+			}else {
+				return null;
+			}
+		}
+		
+		public ProductDto updateProduct(Long productId, ProductDto productDto) throws IOException {
+		    Optional<Product> optionalProduct = productRepository.findById(productId);
+		    Optional<Category> optionalCategory = categoryRepository.findById(productDto.getCategoryId());
+		    
+		    if (optionalProduct.isPresent() && optionalCategory.isPresent()) {
+		        Product product = optionalProduct.get();
+		        
+		        product.setName(productDto.getName());
+		        product.setPrice(productDto.getPrice());
+		        product.setDescription(productDto.getDescription());
+		        product.setCategory(optionalCategory.get());
+		        product.setImg(productDto.getImg());
+		        
+		        log.info("updated product");		       
+		        return productRepository.save(product).getDto();
+		    } else {
+		        return null;
+		    }
 		}
 
 }

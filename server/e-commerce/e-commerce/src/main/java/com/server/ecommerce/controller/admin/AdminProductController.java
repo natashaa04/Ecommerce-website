@@ -7,9 +7,10 @@ import org.springframework.http.HttpStatus;import org.springframework.http.HttpS
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -57,7 +58,7 @@ public ResponseEntity<Void> deleteProduct(@PathVariable Long productId) {
 	log.info("deleting product");
     boolean deleted = adminProductService.deleteProduct(productId);
     if (deleted) {
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
     return ResponseEntity.notFound().build();
 }
@@ -66,10 +67,34 @@ public ResponseEntity<Void> deleteProduct(@PathVariable Long productId) {
 public ResponseEntity<FAQDto> postFAQ(@PathVariable Long productId,@RequestBody FAQDto faqDto){
 	FAQDto ResultedfaqDto= faqService.postFAQ(productId, faqDto);
 	if(ResultedfaqDto!=null) {
-		return ResponseEntity.status(HttpStatus.OK).body(ResultedfaqDto);
+		return ResponseEntity.ok(ResultedfaqDto);
 	}
-	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+	return ResponseEntity.notFound().build();
 	
+}
+
+@GetMapping("/product/{productId}")
+public ResponseEntity<ProductDto> getProductById(@PathVariable Long productId){
+	
+	ProductDto productDto = adminProductService.getProductById(productId);
+	log.info("product in controller:{}",productDto);
+	
+
+	return ResponseEntity.status(HttpStatus.OK).body(productDto);
+
+}
+
+@PutMapping("/product/{productId}")
+public ResponseEntity<ProductDto> updateProduct(@PathVariable Long productId, @RequestBody ProductDto productDto) throws IOException {
+    try {
+        ProductDto updatedProduct = adminProductService.updateProduct(productId, productDto);
+      
+            return ResponseEntity.ok(updatedProduct);
+      
+    } catch (IOException e) {
+        // Handle IOException appropriately
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
 }
 
 }

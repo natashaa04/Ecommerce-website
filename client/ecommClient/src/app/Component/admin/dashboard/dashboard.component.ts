@@ -61,7 +61,6 @@ constructor(private adminService :AdminService,
       next:(res:any) => {
 
       res.forEach(element => {
-        element.processedImg = element.img;
         this.products.push(element);
       });
       console.log(this.products);

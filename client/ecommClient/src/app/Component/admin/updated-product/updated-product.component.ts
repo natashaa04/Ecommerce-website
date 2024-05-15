@@ -1,54 +1,54 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
-import { AdminService } from '../../../services/adminService/admin.service';
 import { AngularMaterialModule } from '../../../AngularMaterialModule';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { AdminService } from '../../../services/adminService/admin.service';
+import { ActivatedRoute ,Router} from '@angular/router';
 
 @Component({
-  selector: 'app-post-product',
+  selector: 'app-updated-product',
   standalone: true,
   imports: [AngularMaterialModule, FormsModule,
     ReactiveFormsModule,NgIf,NgFor],
-  templateUrl: './post-product.component.html',
-  styleUrl: './post-product.component.scss',
-
+  templateUrl: './updated-product.component.html',
+  styleUrl: './updated-product.component.scss'
 })
-export class PostProductComponent {
+export class UpdatedProductComponent {
+  productId:number=this.activatedRoute.snapshot.params['productId'];
+
   productForm: FormGroup;
   listofCategories: any = [];
   selectedFile: File | null;
   imagePreview: string | null;
   
+  
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private snackBar: MatSnackBar,
-    private adminService: AdminService
+    private adminService: AdminService,
+    private activatedRoute:ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
     this.productForm = this.fb.group({
-      // img: [null, [Validators.required]],
       categoryId: [null, [Validators.required]],
       name: [null, [Validators.required]],
       price: [null, [Validators.required]],
       description: [null, [Validators.required]],
     });
     this.getAllCategories();
-    console.log('cateories are',this.listofCategories);
+    this.getProductById();
+  
   }
 
   onFileSelected(event: any): void {
     // console.log('selected file');
     this.selectedFile = event.target.files[0];
     this.previewImage();
-
+    
   }
-
-  
   
   previewImage(): void {
     const reader = new FileReader();
@@ -60,10 +60,9 @@ export class PostProductComponent {
     
     reader.readAsDataURL(this.selectedFile);
   }
-  
-  
 
- 
+  
+  
   
   getAllCategories(): void {
     this.adminService.getAllCategories().subscribe({
@@ -78,7 +77,20 @@ export class PostProductComponent {
     });
   }
 
-addProduct(): void {
+  getProductById(){
+      this.adminService.getProductById(this.productId).subscribe({
+        next:(res)=>{
+          this.productForm.patchValue(res);
+        
+          this.imagePreview=res.img;
+          console.log('res of productbyid',this.imagePreview);
+        },
+        error:(err)=>{
+          console.log('error while getting product');
+        }
+      })
+  }
+updateProduct(): void {
     if (this.productForm.valid) {
 
 const formData: FormData = new FormData();
@@ -92,10 +104,10 @@ formData.forEach((value, key) => {
   serializedFormData[key] = value;
 });
       
-      this.adminService.addProduct(serializedFormData).subscribe({
+      this.adminService.updateProduct(this.productId,serializedFormData).subscribe({
         next:(res) => {
         if (res.id != null) {
-          this.snackBar.open('Product Added Successfully!', 'Close', { duration: 5000 });
+          this.snackBar.open('Product Updated Successfully!', 'Close', { duration: 5000 });
           this.router.navigateByUrl('/admin/dashboard');
         } else {
           this.snackBar.open(res.message, 'ERROR', { duration: 5000 });
@@ -115,6 +127,5 @@ formData.forEach((value, key) => {
   }
   
 
-  
   
 }
