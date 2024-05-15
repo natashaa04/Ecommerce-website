@@ -1,13 +1,13 @@
 <div class="container">
   <mat-card>
     <mat-card-content>
-      <table mat-table [dataSource]="myOrders" class="mat-elevation-28">
-
+      <table mat-table [dataSource]="orders" class="mat-elevation-28">
+  
         <ng-container matColumnDef="trackingId">
           <th mat-header-cell *matHeaderCellDef>Tracking ID</th>
           <td mat-cell *matCellDef="let order">{{ order.trackingId }}</td>
         </ng-container>
-
+  
         <ng-container matColumnDef="userName">
           <th mat-header-cell *matHeaderCellDef>User Name</th>
           <td mat-cell *matCellDef="let order">{{ order.userName }}</td>
@@ -23,7 +23,7 @@
           <td mat-cell *matCellDef="let order">{{ order.orderDescription }}</td>
         </ng-container>
 
-        <ng-container matColumnDef="address">
+            <ng-container matColumnDef="address">
           <th mat-header-cell *matHeaderCellDef>Address</th>
           <td mat-cell *matCellDef="let order">{{ order.address }}</td>
         </ng-container>
@@ -38,11 +38,25 @@
           <td mat-cell *matCellDef="let order">{{ order.orderStatus }}</td>
         </ng-container>
       
-        <!-- Action column removed -->
+        <ng-container matColumnDef="action">
 
-        <tr mat-header-row *matHeaderRowDef="['trackingId', 'userName', 'amount', 'description', 'address', 'date', 'status']"></tr>
+          <mat-header-cell *matHeaderCellDef style="font-weight: bolder; color: #003973;">Action</mat-header-cell>
         
-        <tr mat-row *matRowDef="let row; columns: ['trackingId', 'userName', 'amount', 'description', 'address', 'date', 'status']"></tr>
+          <mat-cell *matCellDef="let myOrder">
+        
+            <span *ngIf="myOrder.orderStatus === 'Delivered'">
+              <button mat-raised-button color="primary" type="submit" routerLink="/customer/ordered_products'/{{myOrder.id}}">Review</button>
+            </span>
+        
+          </mat-cell>
+        
+        </ng-container>
+        
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['trackingId', 'userName', 'amount', 'description', 'address', 'date', 'status', 'action']"></tr>
+        
+        <tr mat-row *matRowDef="let row; columns: ['trackingId', 'userName', 'amount', 'description', 'address', 'date', 'status', 'action']"></tr>
       </table>
     </mat-card-content>
   </mat-card>

@@ -13,6 +13,8 @@ import { OrdersComponent } from './Component/admin/orders/orders.component';
 import { MyOrdersComponent } from './Component/customer/my-orders/my-orders.component';
 import { PostProductFaqComponent } from './Component/admin/post-product-faq/post-product-faq.component';
 import { UpdatedProductComponent } from './Component/admin/updated-product/updated-product.component';
+import { ViewOrderedProductsComponent } from './Component/customer/view-ordered-products/view-ordered-products.component';
+import { ReviewOrderedProductComponent } from './Component/customer/review-ordered-product/review-ordered-product.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent } ,
@@ -30,5 +32,6 @@ export const routes: Routes = [
  {path:'customer/my_orders', component:MyOrdersComponent},
  {path:'admin/faq/:productId', component:PostProductFaqComponent},
  {path:'admin/product/:productId', component:UpdatedProductComponent},
-
+ {path:'customer/ordered_products/:orderId', component:ViewOrderedProductsComponent},
+ {path:'review/:productId', component:ReviewOrderedProductComponent},
 ];
