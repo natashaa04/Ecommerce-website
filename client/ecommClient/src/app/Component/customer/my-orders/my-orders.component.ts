@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerService } from '../../../services/customerService/customer.service';
 import { AngularMaterialModule } from '../../../AngularMaterialModule';
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgFor, NgIf } from '@angular/common';
+import { RouterLink,Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-my-orders',
   standalone: true,
-  imports: [AngularMaterialModule,DatePipe],
+  imports: [AngularMaterialModule,DatePipe,RouterModule,NgIf,NgFor],
   templateUrl: './my-orders.component.html',
   styleUrl: './my-orders.component.scss'
 })

@@ -4,6 +4,8 @@ package com.server.ecommerce.entity;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.server.ecommerce.dto.ReviewDto;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -36,4 +38,18 @@ public class Review {
 	@JoinColumn(name="product_id", nullable = false )
 	@OnDelete(action=OnDeleteAction.CASCADE)
 	private Product product;
+	
+	public ReviewDto getDto() {
+	    ReviewDto reviewDto = new ReviewDto();
+	    reviewDto.setId(this.id);
+	    reviewDto.setRating(this.rating);
+	    reviewDto.setDescription(this.description);
+	    reviewDto.setImg(this.img);
+	    reviewDto.setProductId(this.product.getId());
+	    reviewDto.setUserId(this.user.getId());
+	    reviewDto.setUsername(this.user.getName());
+	    
+	    return reviewDto;
+	}
+
 }

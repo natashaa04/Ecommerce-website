@@ -77,9 +77,12 @@ public class CartServiceImpl implements CartService {
 	            cart.setOrder(activeOrder);
 
 	            CartItems updatedCart = cartItemsRepository.save(cart);
+	            log.info("cartitem id:{}",updatedCart.getId());
 	            activeOrder.setTotalAmount(activeOrder.getTotalAmount() + cart.getPrice());
-	            activeOrder.setAmount(activeOrder.getAmount() + cart.getPrice());
+	            activeOrder.setAmount(activeOrder.getAmount() + cart.getPrice());//                   log.info("updated cart :{}",updatedCart.toString());
 	            activeOrder.getCartItems().add(updatedCart);
+//	            log.info("updated order :{}",activeOrder.toString());
+
 	            orderRepository.save(activeOrder);
 	            
 	            
