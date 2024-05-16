@@ -32,7 +32,7 @@ public class FAQ {
 	private Product product;
 	
 	public FAQDto getFAQDto() {
-		FAQDto faqDto= new FAQDto();
+	FAQDto faqDto= new FAQDto();
 	faqDto.setId(id);
 	faqDto.setQuestion(question);
 	faqDto.setAnswer(answer);

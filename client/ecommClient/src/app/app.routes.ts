@@ -34,4 +34,5 @@ export const routes: Routes = [
  {path:'admin/product/:productId', component:UpdatedProductComponent},
  {path:'customer/ordered_products/:orderId', component:ViewOrderedProductsComponent},
  {path:'customer/review/:productId', component:ReviewOrderedProductComponent},
+ {path:'customer/product/:productId', component:OrdersComponent},
 ];
