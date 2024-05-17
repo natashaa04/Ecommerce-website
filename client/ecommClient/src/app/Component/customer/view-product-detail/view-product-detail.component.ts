@@ -27,15 +27,20 @@ export class ViewProductDetailComponent {
   }
   
   getProductDetailById() {
-      this.customerService.getProductDetailById(this.productId).subscribe(res => {
+      this.customerService.getProductDetailById(this.productId).subscribe({
+        next:(res) => {
           this.product = res.productDto;
           this.product.processedImg =  res.productDto.img;
           this.FAQS = res.faqDtoList;
           res.reviewDtoList.forEach(element => {
               element.processedImg =  element.img;
               this.reviews.push(element);
-          });
+          })}
+          ,error:(err)=>{
+             console.log('error while fetching product detail');
+          }
       });
+  
   }
   
 }
