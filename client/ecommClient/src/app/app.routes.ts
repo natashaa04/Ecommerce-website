@@ -15,6 +15,7 @@ import { PostProductFaqComponent } from './Component/admin/post-product-faq/post
 import { UpdatedProductComponent } from './Component/admin/updated-product/updated-product.component';
 import { ViewOrderedProductsComponent } from './Component/customer/view-ordered-products/view-ordered-products.component';
 import { ReviewOrderedProductComponent } from './Component/customer/review-ordered-product/review-ordered-product.component';
+import { ViewProductDetailComponent } from './Component/customer/view-product-detail/view-product-detail.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent } ,
@@ -34,5 +35,5 @@ export const routes: Routes = [
  {path:'admin/product/:productId', component:UpdatedProductComponent},
  {path:'customer/ordered_products/:orderId', component:ViewOrderedProductsComponent},
  {path:'customer/review/:productId', component:ReviewOrderedProductComponent},
- {path:'customer/product/:productId', component:OrdersComponent},
+ {path:'customer/product/:productId', component:ViewProductDetailComponent},
 ];
