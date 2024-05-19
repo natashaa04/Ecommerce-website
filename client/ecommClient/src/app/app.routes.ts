@@ -16,6 +16,7 @@ import { UpdatedProductComponent } from './Component/admin/updated-product/updat
 import { ViewOrderedProductsComponent } from './Component/customer/view-ordered-products/view-ordered-products.component';
 import { ReviewOrderedProductComponent } from './Component/customer/review-ordered-product/review-ordered-product.component';
 import { ViewProductDetailComponent } from './Component/customer/view-product-detail/view-product-detail.component';
+import { ViewWishListComponent } from './Component/customer/view-wish-list/view-wish-list.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent } ,
@@ -36,4 +37,6 @@ export const routes: Routes = [
  {path:'customer/ordered_products/:orderId', component:ViewOrderedProductsComponent},
  {path:'customer/review/:productId', component:ReviewOrderedProductComponent},
  {path:'customer/product/:productId', component:ViewProductDetailComponent},
+ {path:'customer/review/:productId', component:ReviewOrderedProductComponent},
+ {path:'customer/wishlist', component:ViewWishListComponent},
 ];

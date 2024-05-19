@@ -4,6 +4,7 @@ import { CustomerService } from '../../../services/customerService/customer.serv
 import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
 import { CurrencyPipe, DatePipe, NgFor, NgIf } from '@angular/common';
 import { AngularMaterialModule } from '../../../AngularMaterialModule';
+import { UserStorageService } from '../../../services/storage/user-storage.service';
 
 @Component({
   selector: 'app-view-product-detail',
@@ -38,9 +39,30 @@ export class ViewProductDetailComponent {
           })}
           ,error:(err)=>{
              console.log('error while fetching product detail');
+             
           }
       });
   
+  }
+
+  addToWishlist(){
+    const wishlistDto={
+      productId:this.productId,
+      userId:UserStorageService.getUserId()
+    }
+
+    this.customerService.addProductToWishlist(wishlistDto).subscribe({
+      next:(res)=>{
+      this.snackBar.open('Product Added to Wishlist','Close',{
+        duration:5000
+      })
+      },
+      error:(err)=>{
+        this.snackBar.open('Already in Wishlist','ERROR',{
+          duration:5000
+        });
+      }
+    })
   }
   
 }

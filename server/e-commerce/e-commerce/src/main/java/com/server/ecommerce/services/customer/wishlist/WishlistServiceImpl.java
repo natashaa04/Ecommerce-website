@@ -1,6 +1,8 @@
 package com.server.ecommerce.services.customer.wishlist;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,6 +48,12 @@ public class WishlistServiceImpl implements WishlistService {
 
 	    return null;
 	}
+	
+	public List<WishlistDto> getWishlistByUserId(Long userId){
+	List<Wishlist>wishlist= wishlistRepository.findByUserId(userId);
+			return (List<WishlistDto>) wishlist.stream().map(Wishlist::getWishlistDto).collect(Collectors.toList());
+		
+				}
 
 
 }
