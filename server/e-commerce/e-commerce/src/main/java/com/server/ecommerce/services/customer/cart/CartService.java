@@ -1,6 +1,7 @@
 package com.server.ecommerce.services.customer.cart;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
 
@@ -18,4 +19,5 @@ public interface CartService  {
 	public OrderDto increaseProductQuantity(AddProductInCartDto addProductInCartDto);
 	public OrderDto decreaseProductQuantity(AddProductInCartDto addProductInCartDto);
 	 public List<OrderDto> getMyPlacedOrders(Long userId);
+	  public OrderDto searchByTrackingId(UUID trackingId);
 }
