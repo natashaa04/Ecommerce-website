@@ -18,6 +18,7 @@ import { ReviewOrderedProductComponent } from './Component/customer/review-order
 import { ViewProductDetailComponent } from './Component/customer/view-product-detail/view-product-detail.component';
 import { ViewWishListComponent } from './Component/customer/view-wish-list/view-wish-list.component';
 import { TrackOrderComponent } from './Component/track-order/track-order.component';
+import { AnalyticsComponent } from './Component/admin/analytics/analytics.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent } ,
@@ -41,5 +42,6 @@ export const routes: Routes = [
  {path:'customer/review/:productId', component:ReviewOrderedProductComponent},
  {path:'customer/wishlist', component:ViewWishListComponent},
  {path:'order', component:TrackOrderComponent},
+ {path:'admin/analytics', component:AnalyticsComponent},
 
 ];

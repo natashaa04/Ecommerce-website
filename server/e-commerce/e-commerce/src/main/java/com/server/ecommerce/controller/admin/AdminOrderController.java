@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.server.ecommerce.dto.AnalyticsResponse;
 import com.server.ecommerce.dto.OrderDto;
 import com.server.ecommerce.services.adminOrder.AdminOrderService;
 
@@ -38,6 +39,11 @@ public class AdminOrderController {
 	        return new ResponseEntity<>("Something went wrong!", HttpStatus.BAD_REQUEST); 
 	    }
 	    return ResponseEntity.status(HttpStatus.OK).body(orderDto); 
+	}
+	
+	@GetMapping("/order/analytics")
+	public ResponseEntity<AnalyticsResponse> getAnalytics(){
+		return ResponseEntity.ok(adminOrderService.calculateAnalytics());
 	}
 
 } 
