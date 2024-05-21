@@ -20,4 +20,5 @@ public interface CartService  {
 	public OrderDto decreaseProductQuantity(AddProductInCartDto addProductInCartDto);
 	 public List<OrderDto> getMyPlacedOrders(Long userId);
 	  public OrderDto searchByTrackingId(UUID trackingId);
+	  public ResponseEntity<?> removeProductFromCart(AddProductInCartDto addProductInCartDto);
 }

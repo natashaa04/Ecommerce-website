@@ -66,8 +66,13 @@ import { CustomerService } from '../../../services/customerService/customer.serv
     }
 
     addToCart(id: any) {
-      this.customerService.addToCart(id).subscribe(res => {
+      this.customerService.addToCart(id).subscribe({
+        next:(res) => {
         this.snackBar.open("Product added to cart successfully", "Close", { duration: 5000 });
+        },
+        error:(err)=>{
+          this.snackBar.open('Error while Adding to Cart',"Close", { duration: 5000 })
+        }
       });
     }
     

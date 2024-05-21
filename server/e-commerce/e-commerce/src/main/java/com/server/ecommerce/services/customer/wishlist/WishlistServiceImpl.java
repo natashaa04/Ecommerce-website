@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.hibernate.Remove;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.server.ecommerce.dto.AddProductInCartDto;
 import com.server.ecommerce.dto.WishlistDto;
 import com.server.ecommerce.entity.Product;
 import com.server.ecommerce.entity.Wishlist;
@@ -16,11 +18,14 @@ import com.server.ecommerce.repository.UserRepository;
 import com.server.ecommerce.repository.WishlistRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 
 
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class WishlistServiceImpl implements WishlistService {
 
 	@Autowired
@@ -54,6 +59,21 @@ public class WishlistServiceImpl implements WishlistService {
 			return (List<WishlistDto>) wishlist.stream().map(Wishlist::getWishlistDto).collect(Collectors.toList());
 		
 		}
-
-
+	
+	public Boolean removeFromWishlist(AddProductInCartDto addProductInCartDto) {
+		Optional<Wishlist>optionalWishlist = wishlistRepository.deleteByUserIdAndProductId(addProductInCartDto.getUserId(), addProductInCartDto.getProductId());
+		log.info("option wislist:{}",optionalWishlist);
+    if(optionalWishlist.isPresent()) {
+    	return true;
+    }
+    return false;
+	}
+	
+	
+	public Boolean isProductInWislist(Long userId,Long productId) {
+		return wishlistRepository.existsByUserIdAndProductId(userId,productId);
+	}
+	
+	
+	
 }

@@ -135,11 +135,35 @@ getWishlistByUserId(): Observable<any> {
       headers: this.createAuthorizationHeader()
   });
 }
-
-
-
-
-
-
-
+removeProductFromWishlist(wishlistDto: any): Observable<any> {
+  return this.http.post(`${BASIC_URL}api/customer/wishlist/remove`, wishlistDto, {
+    headers: this.createAuthorizationHeader()
+  });
 }
+
+isProductInWishlist(productId: number): Observable<any> {
+  const userId = UserStorageService.getUserId();
+  return this.http.get(`${BASIC_URL}api/customer/wishlist/${userId}/isInWishlist/${productId}`, {
+    headers: this.createAuthorizationHeader()
+  });
+}
+
+removeFromCart(productId: any): Observable<any> {
+  const userId = UserStorageService.getUserId();
+  const options = {
+    headers: this.createAuthorizationHeader(),
+    body: { productId: productId, userId: userId }
+  };
+  return this.http.delete(BASIC_URL + 'api/customer/cart/removeItem', options);
+}
+}
+
+
+
+
+
+
+
+
+
+

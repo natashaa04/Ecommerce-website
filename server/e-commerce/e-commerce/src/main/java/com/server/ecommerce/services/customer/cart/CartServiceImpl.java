@@ -63,7 +63,7 @@ public class CartServiceImpl implements CartService {
 	            addProductInCartDto.getProductId(), activeOrder.getId(), addProductInCartDto.getUserId());
 
 	    if (optionalCartItems.isPresent()) {
-	        return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
+	        return ResponseEntity.status(HttpStatus.CONFLICT).body("Item already present in cart");
 	    } else {
 	        Optional<Product> optionalProduct = productRepository.findById(addProductInCartDto.getProductId());
 	        Optional<user> optionalUser = userRepository.findById(addProductInCartDto.getUserId());
@@ -274,6 +274,33 @@ public class CartServiceImpl implements CartService {
     	 }
     	 return null;
      }
-    
+     
+     
+     public ResponseEntity<?> removeProductFromCart(AddProductInCartDto addProductInCartDto) {
+         Order activeOrder = orderRepository.findByUserIdAndOrderStatus(addProductInCartDto.getUserId(), OrderStatus.Pending);
+
+         if (activeOrder == null) {
+             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Active order not found for user");
+         }
+
+         Optional<CartItems> optionalCartItems = cartItemsRepository.findByProductIdAndOrderIdAndUserId(
+                 addProductInCartDto.getProductId(), activeOrder.getId(), addProductInCartDto.getUserId());
+
+         if (optionalCartItems.isPresent()) {
+             CartItems cartItem = optionalCartItems.get();
+             activeOrder.setTotalAmount(activeOrder.getTotalAmount() - cartItem.getPrice());
+             activeOrder.setAmount(activeOrder.getAmount() - cartItem.getPrice());
+             activeOrder.getCartItems().remove(cartItem);
+
+             cartItemsRepository.delete(cartItem);
+             orderRepository.save(activeOrder);
+
+             return ResponseEntity.ok("Item removed from cart");
+         } else {
+             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item not found in cart");
+         }
+     }
 }
+    
+
 
