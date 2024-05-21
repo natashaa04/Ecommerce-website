@@ -15,12 +15,12 @@
     
     <div class="product-list">
     
-        <mat-card class="product-card" *ngFor="let product of products">
+        <mat-card class="product-card" *ngFor="let product of products"  routerLink="/customer/product/{{product.id}}">
           <div class="product-image">
             <img [src]="product.processedImg" alt="product-image">
           </div>
           <div class="product-details">
-            <h2 class="product-name" routerLink="/customer/product/{{product.id}}">{{ product.name }}</h2>
+            <h2 class="product-name">{{ product.name }}</h2>
             <p class="product-description">{{ product.description }}</p>
             <mat-divider></mat-divider>
             <div class="product-info">
@@ -35,7 +35,7 @@
             </div>
             <mat-divider/>
             <div class="actions">
-              <button mat-raised-button color="warn" class="delete-button" (click)="addToCart(product.id)">Add to cart</button>
+              <button mat-raised-button color="warn" (click)="addToCart(product.id)">Add to cart</button>
             </div>
           </div>
         </mat-card>

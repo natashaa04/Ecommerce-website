@@ -4,6 +4,7 @@ import { AngularMaterialModule } from '../../../AngularMaterialModule';
 import { NgFor, NgIf } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserStorageService } from '../../../services/storage/user-storage.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-view-wish-list',
@@ -60,6 +61,7 @@ this.customerService.removeProductFromWishlist(cartdto).subscribe({
           userId: UserStorageService.getUserId()
         };
   this.customerService.removeProductFromWishlist(cartdto).subscribe({next:(res)=>{}})
+  this.products = this.products.filter(product => product.productId !== productId);
       this.snackBar.open("Product Added To Cart Successfully", "Close", { duration: 5000 });
       
       },

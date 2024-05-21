@@ -95,7 +95,7 @@ applyCoupon(){
        this.getCart();
       },
       error:(err)=>{
-        this.snackbar.open(err.error,'ERROR',{duration:5000});
+        this.snackbar.open('Error While Applying Coupon','ERROR',{duration:5000});
       }
     }
   )}
@@ -104,5 +104,18 @@ placeOrder(){
   this.dialog.open(PlaceOrderComponent);
 }
 
+removeFromCart(productId: any) {
 
+  this.customerService.removeFromCart(productId).subscribe({
+    next: (res) => {
+      console.log('removed cart res',res);
+      this.snackbar.open('Product removed from cart.', 'Close', { duration: 5000 });
+      this.cartItems = this.cartItems.filter(item => item.productId !== productId);
+    },
+    error: (err) => {
+      this.snackbar.open('Error While Removin Frome Cart','ERROR',{duration:5000});
+      console.log('error while removing product', err);
+    }
+  });
+}
 }

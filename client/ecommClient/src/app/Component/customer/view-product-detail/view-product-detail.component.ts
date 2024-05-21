@@ -118,9 +118,7 @@ export class ViewProductDetailComponent {
         });
       },
       error: (err) => {
-        this.snackBar.open('Error while Adding to Cart', 'ERROR', {
-          duration: 5000
-        });
+        
       }
     });
   }

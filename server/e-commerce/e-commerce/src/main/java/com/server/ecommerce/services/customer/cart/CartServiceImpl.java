@@ -295,9 +295,9 @@ public class CartServiceImpl implements CartService {
              cartItemsRepository.delete(cartItem);
              orderRepository.save(activeOrder);
 
-             return ResponseEntity.ok("Item removed from cart");
+             return ResponseEntity.status(HttpStatus.ACCEPTED).build();
          } else {
-             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item not found in cart");
+             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
          }
      }
 }

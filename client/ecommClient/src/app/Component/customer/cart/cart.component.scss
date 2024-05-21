@@ -135,7 +135,35 @@ button {
     margin: 0 auto;
     padding: 20px;
 }
-
+.empty-Cart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    text-align: center;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  .empty-Cart-container .empty-icon {
+    // font-size: 60px;
+    color: #ff4081;
+    // margin-bottom: 20px;
+  }
+  
+  .empty-Cart-container h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .empty-Cart-container p {
+    font-size: 18px;
+    color: #666;
+  }
 @media (max-width: 600px) {
     .container {
         padding: 10px;

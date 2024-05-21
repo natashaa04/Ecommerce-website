@@ -1,4 +1,4 @@
-<div class="center-container">
+<div class="center-container" *ngIf="products.length > 0; else emptyWishlist">
   <div class="product-card" *ngFor="let product of products">
     
     <div class="product-image">
@@ -17,10 +17,18 @@
         <mat-icon>delete</mat-icon>
       </button>
     
-      <button class="add-to-cart-icon" mat-icon-button (click)="addToCart(product.id)">
+      <button class="add-to-cart-icon" mat-icon-button (click)="addToCart(product.productId)">
         <mat-icon>add_shopping_cart</mat-icon>
       </button>
     </div>
     
   </div>
 </div>
+
+<ng-template #emptyWishlist>
+  <div class="empty-wishlist-container">
+    <mat-icon class="empty-icon">favorite_border</mat-icon>
+    <h2>Your Wishlist is Empty</h2>
+    <p>Browse products and add them to your wishlist!</p>
+  </div>
+</ng-template>

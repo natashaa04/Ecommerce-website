@@ -19,6 +19,7 @@
     height: auto;
     border-radius: 8px;
   }
+
   
   .product-card h2 {
     font-size: 24px;
@@ -50,6 +51,17 @@
     cursor: pointer;
     margin-top: 10px;
   }
+  .product-card .cart-icon {
+    font-size: 24px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.product-card .cart-icon:hover {
+    color: green;
+}
+
   
   /* Reviews card */
   .review-list {
