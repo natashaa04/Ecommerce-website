@@ -1,29 +1,36 @@
-.navbar {
-    display: flex;
-    align-items: center;
-    padding: 0 16px;
-}
-
-.navbar-brand {
-    font-size: 20px;
-    font-weight: 600;
-    margin-right: 16px;
-}
-
-.spacer {
+.sidenav-container {
+    height: 100%;
+  }
+  
+  .sidenav {
+    width: 250px;
+  }
+  
+  .mat-toolbar {
+    position: fixed;
+    top: 0;
+    z-index: 2;
+    width: 100%;
+  }
+  
+  .spacer {
     flex: 1;
-}
-
-button {
-    color: white;
-    text-transform: uppercase;
-    margin-left: 8px;
-}
-
-button.active {
-    font-weight: 600;
-}
-
-.custom-toolbar {
-    background-color: #ff0000;
-}
+  }
+  
+  .desktop-menu {
+    display: none;
+  }
+  
+  .menu-button {
+    display: block;
+  }
+  
+  @media (min-width: 768px) {
+    .desktop-menu {
+      display: flex;
+    }
+    .menu-button {
+      display: none;
+    }
+  }
+  

@@ -1,63 +1,53 @@
-import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { AngularMaterialModule } from './AngularMaterialModule';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { MatCardModule } from '@angular/material/card';
-import { CommonModule } from '@angular/common';
-import { SignUpComponent } from './Component/sign-up/sign-up.component';
-import { LoginComponent } from './Component/login/login.component';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, Event, NavigationEnd } from '@angular/router';
 import { UserStorageService } from './services/storage/user-storage.service';
-import { AdminService } from './services/adminService/admin.service';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    LoginComponent,
-    SignUpComponent,
+    CommonModule,
     RouterOutlet,
-    AngularMaterialModule,
     RouterLink,
     RouterLinkActive,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    MatCardModule,
-    CommonModule
+    MatSidenavModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatListModule,
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
-  providers:[UserStorageService,AdminService]
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'ecommClient';
-
+export class AppComponent implements OnInit {
   isCustomerLoggedIn: boolean;
-isAdminLoggedIn: boolean;
-Token:String;
-User:String;
+  isAdminLoggedIn: boolean;
+  Token: string;
+  User: string;
 
+  constructor(private router: Router) {}
 
-constructor(private router: Router) {}
-
-ngOnInit(): void {
-    this.router.events.subscribe(event => {
+  ngOnInit(): void {
+    this.router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationEnd) {
         this.isCustomerLoggedIn = UserStorageService.isCustomerLoggedIn();
         this.isAdminLoggedIn = UserStorageService.isAdminLoggedIn();
-        this.Token= UserStorageService.getToken();
-        this.User=UserStorageService.getUser();
-        console.log('token in app',this.Token);
-        // console.log('admin loged in?',this.isAdminLoggedIn);
-      //  AdminService.getToken(this.Token)
-
+        this.Token = UserStorageService.getToken();
+        this.User = UserStorageService.getUser();
+        console.log('token in app', this.Token);
+      }
     });
-}
+  }
 
-logout(): void {
+  logout(): void {
     UserStorageService.signOut();
-    this.router.navigateByUrl("login");
+    this.router.navigateByUrl('login');
+  }
 }
-
-} 

@@ -1,17 +1,43 @@
-<div *ngIf="!isAdminLoggedIn && !isCustomerLoggedIn" >
-<mat-toolbar color="primary" class="navbar">
-    <span class="navbar-brand">E-Commerce</span>
-    <span class="spacer"></span>
-    <button mat-button routerLink="/order" routerLinkActive="active">Track Order</button>
-    <button mat-button routerLink="/signup" routerLinkActive="active">Register</button>
-    <button mat-button routerLink="/login" routerLinkActive="active">Login</button>
-  </mat-toolbar>
-</div>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" mode="over" [fixedInViewport]="true" fixedTopGap="56">
+    <mat-nav-list *ngIf="!isAdminLoggedIn && !isCustomerLoggedIn">
+      <a mat-list-item routerLink="/order" routerLinkActive="active">Track Order</a>
+      <a mat-list-item routerLink="/signup" routerLinkActive="active">Register</a>
+      <a mat-list-item routerLink="/login" routerLinkActive="active">Login</a>
+    </mat-nav-list>
+    <mat-nav-list *ngIf="isAdminLoggedIn">
+      <a mat-list-item routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a>
+      <a mat-list-item routerLink="/admin/analytics" routerLinkActive="active">Analytics</a>
+      <a mat-list-item routerLink="/admin/category" routerLinkActive="active">Category</a>
+      <a mat-list-item routerLink="/admin/product" routerLinkActive="active">Product</a>
+      <a mat-list-item routerLink="/admin/orders" routerLinkActive="active">Orders</a>
+      <a mat-list-item routerLink="/admin/post-coupon" routerLinkActive="active">Post Coupon</a>
+      <a mat-list-item routerLink="/admin/coupons" routerLinkActive="active">Coupons</a>
+      <a mat-list-item (click)="logout()">Logout</a>
+    </mat-nav-list>
+    <mat-nav-list *ngIf="isCustomerLoggedIn">
+      <a mat-list-item routerLink="/customer/dashboard" routerLinkActive="active">Dashboard</a>
+      <a mat-list-item routerLink="/customer/cart" routerLinkActive="active">Cart</a>
+      <a mat-list-item routerLink="/customer/my_orders" routerLinkActive="active">Orders</a>
+      <a mat-list-item routerLink="/customer/wishlist" routerLinkActive="active">Wishlist</a>
+      <a mat-list-item routerLink="/customer/profile" routerLinkActive="active">Profile</a>
+      <a mat-list-item (click)="logout()">Logout</a>
+    </mat-nav-list>
+  </mat-sidenav>
 
-  <div *ngIf="isAdminLoggedIn">
-    <mat-toolbar color="primary" class="navbar">
-        <span class="navbar-brand">E-Commerce</span>
-        <span class="spacer"></span>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button mat-icon-button (click)="drawer.toggle()" class="menu-button">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="navbar-brand">E-Commerce</span>
+      <span class="spacer"></span>
+      <div class="desktop-menu" *ngIf="!isAdminLoggedIn && !isCustomerLoggedIn">
+        <button mat-button routerLink="/order" routerLinkActive="active">Track Order</button>
+        <button mat-button routerLink="/signup" routerLinkActive="active">Register</button>
+        <button mat-button routerLink="/login" routerLinkActive="active">Login</button>
+      </div>
+      <div class="desktop-menu" *ngIf="isAdminLoggedIn">
         <button mat-button routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</button>
         <button mat-button routerLink="/admin/analytics" routerLinkActive="active">Analytics</button>
         <button mat-button routerLink="/admin/category" routerLinkActive="active">Category</button>
@@ -19,20 +45,18 @@
         <button mat-button routerLink="/admin/orders" routerLinkActive="active">Orders</button>
         <button mat-button routerLink="/admin/post-coupon" routerLinkActive="active">Post Coupon</button>
         <button mat-button routerLink="/admin/coupons" routerLinkActive="active">Coupons</button>
-        <button mat-button routerLinkActive="active" (click)="logout()">Logout</button>
+        <button mat-button (click)="logout()">Logout</button>
+      </div>
+      <div class="desktop-menu" *ngIf="isCustomerLoggedIn">
+        <button mat-button routerLink="/customer/dashboard" routerLinkActive="active">Dashboard</button>
+        <button mat-button routerLink="/customer/cart" routerLinkActive="active">Cart</button>
+        <button mat-button routerLink="/customer/my_orders" routerLinkActive="active">Orders</button>
+        <button mat-button routerLink="/customer/wishlist" routerLinkActive="active">Wishlist</button>
+        <button mat-button routerLink="/customer/profile" routerLinkActive="active">Profile</button>
+        <button mat-button (click)="logout()">Logout</button>
+      </div>
     </mat-toolbar>
-</div>
 
-<div *ngIf="isCustomerLoggedIn">
-  <mat-toolbar color="primary" class="navbar">
-      <span class="navbar-brand">E-Commerce</span>
-      <span class="spacer"></span>
-      <button mat-button routerLink="/customer/dashboard" routerLinkActive="active">Dashboard</button>
-      <button mat-button routerLink="/customer/cart" routerLinkActive="active">Cart</button>
-      <button mat-button routerLink="/customer/my_orders" routerLinkActive="active">Orders</button>
-      <button mat-button routerLink="/customer/wishlist" routerLinkActive="active">Wishlist</button>
-      <button mat-button routerLink="/customer/profile" routerLinkActive="active">Profile</button>
-      <button mat-button routerLinkActive="active" (click)="logout()">Logout</button>
-  </mat-toolbar>
-</div>
- <router-outlet></router-outlet>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
