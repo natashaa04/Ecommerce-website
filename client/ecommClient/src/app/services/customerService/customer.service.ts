@@ -21,13 +21,13 @@ export class CustomerService {
   
   }
   getAllProducts():Observable<any>{
-    return this.http.get( BASIC_URL+'api/admin/products',{
+    return this.http.get( BASIC_URL+'products',{
       headers:this.createAuthorizationHeader(),
     })
   }
 
 getAllProductsByName(name:any):Observable<any>{
-  return this.http.get(BASIC_URL+`api/admin/search/${name}`,{
+  return this.http.get(BASIC_URL+`search/${name}`,{
   headers:this.createAuthorizationHeader(),
   }
   )
@@ -117,7 +117,7 @@ giveReview(reviewDto:any): Observable<any> {
 }
 
 getProductDetailById(productId:number): Observable<any> {
-  return this.http.get(`${BASIC_URL}api/customer/product/${productId}`, {
+  return this.http.get(`${BASIC_URL}product/${productId}`, {
       headers: this.createAuthorizationHeader()
   });
 }

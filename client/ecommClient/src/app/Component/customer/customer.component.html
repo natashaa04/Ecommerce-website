@@ -15,20 +15,20 @@
     
     <div class="product-list">
     
-        <mat-card class="product-card" *ngFor="let product of products"  routerLink="/customer/product/{{product.id}}">
-          <div class="product-image">
+        <mat-card class="product-card" *ngFor="let product of products"  >
+          <div class="product-image" routerLink="/customer/product/{{product.id}}">
             <img [src]="product.processedImg" alt="product-image">
           </div>
-          <div class="product-details">
+          <div class="product-details" >
             <h2 class="product-name">{{ product.name }}</h2>
-            <p class="product-description">{{ product.description }}</p>
+            {{ product.description | slice:0:50 }}{{ product.description.length > 50 ? '...' : '' }}
             <mat-divider></mat-divider>
-            <div class="product-info">
+            <div class="product-info" routerLink="/customer/product/{{product.id}}">
               <div class="info-row">
                 <span class="info-label">Price: </span>
                 <span class="info-value">${{ product.price }}</span>
               </div>
-              <div class="info-row">
+              <div class="info-row" routerLink="/customer/product/{{product.id}}">
                 <span class="info-label">Category:</span>
                 <span class="info-value">{{ product.categoryName }}</span>
               </div>

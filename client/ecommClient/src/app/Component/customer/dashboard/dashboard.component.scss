@@ -1,5 +1,6 @@
 
 .container {
+  margin:52px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -120,4 +121,6 @@
         margin-top: 10px;
       }
     }
-    
+    .product-list :hover{
+      cursor:pointer;
+      }

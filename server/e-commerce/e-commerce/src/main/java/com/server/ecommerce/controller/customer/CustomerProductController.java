@@ -15,7 +15,6 @@ import com.server.ecommerce.services.customer.CustomerProductService;
 
 
 @RestController
-@RequestMapping("/api/customer")
 public class CustomerProductController {
 
 	@Autowired

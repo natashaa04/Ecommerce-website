@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomerService } from '../../services/customerService/customer.service';
-import { CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { CurrencyPipe, NgClass, NgFor, NgIf ,SlicePipe } from '@angular/common';
 import { AngularMaterialModule } from '../../AngularMaterialModule';
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-customer',
   standalone: true,
-  imports: [AngularMaterialModule, FormsModule,
+  imports: [AngularMaterialModule, FormsModule,SlicePipe,
     ReactiveFormsModule,NgIf,CurrencyPipe,NgClass,NgFor,RouterLink],
   templateUrl: './customer.component.html',
   styleUrl: './customer.component.scss'

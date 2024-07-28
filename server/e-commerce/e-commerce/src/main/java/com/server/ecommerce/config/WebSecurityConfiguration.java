@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -24,33 +23,33 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class WebSecurityConfiguration {
 
-	@Autowired
-	private JwtRequestFilter authFilter;
-	
-   Class<? extends Filter> clazz=   UsernamePasswordAuthenticationFilter.class;
+    @Autowired
+    private JwtRequestFilter authFilter;
 
-	
-	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-	    return http
-	            .csrf(csrf->csrf.disable())
-	            .authorizeHttpRequests(auth->auth
-	            		.requestMatchers("/authenticate", "/sign-up", "/order/**").permitAll()
-	                .anyRequest().authenticated())
-	            .sessionManagement(session->session
-	                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-	            .addFilterBefore(authFilter,  clazz)
-	            .build();
-	}
+    Class<? extends Filter> clazz = UsernamePasswordAuthenticationFilter.class;
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-	    return new BCryptPasswordEncoder();
-	}
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http
+                .csrf(csrf -> csrf.disable()) // Disable CSRF protection
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/authenticate", "/sign-up").permitAll() 
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/customer/**").hasRole("CUSTOMER") 
+                        .anyRequest().permitAll()) 
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)) 
+                .addFilterBefore(authFilter, clazz) 
+                .build();
+    }
 
-	@Bean
-	public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-	    return config.getAuthenticationManager();
-	}
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(); // Bean for password encoding
+    }
 
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager(); // Bean for authentication manager
+    }
 }

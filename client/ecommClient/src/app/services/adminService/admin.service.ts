@@ -45,7 +45,7 @@ export class AdminService {
   }
 
   getAllProducts():Observable<any>{
-    return this.http.get( BASIC_URL+'api/admin/products',{
+    return this.http.get( BASIC_URL+'products',{
       headers:this.createAuthorizationHeader(),
     })
   }
@@ -54,7 +54,7 @@ export class AdminService {
 
 
 getAllProductsByName(name:any):Observable<any>{
-  return this.http.get(BASIC_URL+`api/admin/search/${name}`,{
+  return this.http.get(BASIC_URL+`search/${name}`,{
   headers:this.createAuthorizationHeader(),
   }
   )
@@ -102,7 +102,7 @@ updateProduct(productId,productDto:any):Observable<any>{
 }
 
 getProductById(productId):Observable<any>{
-  return this.http.get( BASIC_URL+`api/admin/product/${productId}`,{
+  return this.http.get( BASIC_URL+`product/${productId}`,{
     headers:this.createAuthorizationHeader(),
   })
 }
