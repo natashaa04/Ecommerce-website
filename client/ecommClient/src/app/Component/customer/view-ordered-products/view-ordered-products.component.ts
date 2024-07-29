@@ -20,6 +20,7 @@ export class ViewOrderedProductsComponent {
   
   ngOnInit() {
     this.getOrderedProductsDetailsByOrderId();
+    console.log(this.orderedProductDetailsList)
   }
   
   getOrderedProductsDetailsByOrderId() {
@@ -29,6 +30,7 @@ export class ViewOrderedProductsComponent {
         element.processedImg =  element.img;
         this.orderedProductDetailsList.push(element);
       });
+      console.log(res);
       this.totalAmount = res.orderAmount;
     },
   error:(err)=>{

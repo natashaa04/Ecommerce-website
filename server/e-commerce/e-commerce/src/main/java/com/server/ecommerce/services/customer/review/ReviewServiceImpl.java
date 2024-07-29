@@ -54,6 +54,7 @@ public class ReviewServiceImpl  implements ReviewService{
 			List<ProductDto> productDtoList = new ArrayList<>();
 
 			for (CartItems cartItems : optionalOrder.get().getCartItems()) {
+			    log.info("productdto");
 			    ProductDto productDto = new ProductDto();
 			    productDto.setId(cartItems.getProduct().getId());
 			    productDto.setName(cartItems.getProduct().getName());
@@ -62,6 +63,7 @@ public class ReviewServiceImpl  implements ReviewService{
 			    productDto.setImg(cartItems.getProduct().getImg());
 
 			    productDtoList.add(productDto);
+			    log.info("productdto");
 			}
 
 			orderedProductsResponseDto.setProductDtoList(productDtoList);

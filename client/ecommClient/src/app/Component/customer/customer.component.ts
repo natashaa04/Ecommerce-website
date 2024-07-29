@@ -46,7 +46,7 @@ export class CustomerComponent {
           element.processedImg =  element.img;
           this.products.push(element);
         });
-        console.log(this.products);
+        console.log(this.products,res);
       },error:(err:any)=>{
   
       }

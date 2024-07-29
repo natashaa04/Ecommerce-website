@@ -6,12 +6,12 @@ import {Router, RouterLink, RouterModule} from '@angular/router'
 import { AngularMaterialModule } from '../../../AngularMaterialModule';
 import { NgFor, NgIf } from '@angular/common';
 import { AdminService } from '../../../services/adminService/admin.service';
-
+import { SlicePipe } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [AngularMaterialModule, FormsModule,
+  imports: [AngularMaterialModule, FormsModule,SlicePipe,
     ReactiveFormsModule,NgIf,RouterLink,NgFor,RouterModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
